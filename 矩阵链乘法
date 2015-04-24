@@ -1,0 +1,36 @@
+#include<stdio.h>
+#define wq 300000
+int n;
+int m[201][201];
+void DpMatrixChain(int p[201])
+{
+	int i,c,j,k,q;
+	for(i=1;i<=n;i++)
+		m[i][i]=0;
+	for(c=2;c<=n;c++)
+	{
+		for(i=1;i<=n-c+1;i++)
+		{
+			j=i+c-1;
+			m[i][j]=wq;
+			for(k=i;k<=j-1;k++)
+			{q=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j];
+			 if(q<m[i][j]) m[i][j]=q;
+			}
+		}
+	}
+	for(i=1;i<=n;i++)
+	{for(j=1;j<=n;j++)
+			printf("%d ",m[i][j]);
+	 printf("\n");
+	}
+}
+int main()
+{
+	int p[201],i;
+	scanf("%d",&n);
+	for(i=0;i<=n;i++)
+		scanf("%d",&p[i]);
+	DpMatrixChain(p);
+	return 0;
+}
